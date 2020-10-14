@@ -9,7 +9,7 @@ let user = Array.from(document.getElementsByName("cadastro")).map(function(eleme
 let usern = document.getElementById("cpf");
 let pssw = document.getElementById("senha");
 
-function User (name, cpf, email, cellphone, dataNasc, pswd, lattes, interrest, university, certificates ){ //função construtora para o cadastro.
+function User (name, cpf, email, cellphone, dataNasc, pswd, lattes, interrest, university, account, certificates ){ //função construtora para o cadastro.
     this.nome = name;
     this.cpf = cpf;
     this.email = email;
@@ -19,20 +19,21 @@ function User (name, cpf, email, cellphone, dataNasc, pswd, lattes, interrest, u
     this.university = university;
     this.site = lattes;
     this.celular = cellphone;
+    this.conta = account;
     this.certificados = certificates;
 };
 
 function Cadastrar(){ //sistema para cadastrar um novo usuario.
-    if (ValidEmail()==false || !ValidPass() || !user){ // confirma se os campos foram preenchidos com a mesma senha  VERIFICAR COMO ATESTAR TREU OU FALSE NO RETURN
+    if (!ValidPass() || !user){ // confirma se os campos foram preenchidos com a mesma senha  VERIFICAR COMO ATESTAR TREU OU FALSE NO RETURN
         alert("TODOS OS CAMPOS DEVEM SER PREENCHIDOS CORRETAMENTE!")
     }else{
         if (localStorage.getItem("user") === null ){
-            dataBase.push(new User(user[0], user[1], user[2], user[3], user[4], user[5], user[7], user[8], user[9]));
+            dataBase.push(new User(user[0], user[1], user[2], user[3], user[4], user[5], user[7], user[8], user[9], user[10]));
             localStorage.setItem("user", JSON.stringify(dataBase));
             alert("Cadastro Realizado com Sucesso!");
         }else{
             dataBase = JSON.parse(localStorage.getItem("user"))
-            dataBase.push(new User(user[0], user[1], user[2], user[3], user[4], user[5], user[7], user[8], user[9]));
+            dataBase.push(new User(user[0], user[1], user[2], user[3], user[4], user[5], user[7], user[8], user[9], user[10]));
             localStorage.setItem("user", JSON.stringify(dataBase));
             alert("Cadastro Realizado com Sucesso!");
         }
@@ -48,27 +49,6 @@ function DelUser(){
            // location.href="index.html";
         }
     }
-}
-
-function ValidEmail(field){
-    let address = field.value.substring(0, field.value.indexOf("@"));
-    let domain = field.value.substring(field.value.indexOf("@")+1, field.value.length);
-
-    if ((address.length >=1)&&
-        (domain.length>=3)&&
-        (adress.search("@")==-1)&&
-        (domain.search("@")==-1)&&
-        (address.search(" ")==-1)&&
-        (domain.search(" ")==-1)&&
-        (domain.search(".")!=-1)&&
-        (domain.indexOf(".")>=1)&&
-        (domain.lastIndexOf(".")< domain.length - 1)){
-            document.getElementById("msgEmail").innerHTML = "E-mail Válido" //onblur
-            return true
-    }else{
-            document.getElementById("msgEmail").innerHTML = "E-mail Inválido"
-            return false
-        }
 }
 
 function ValidPass(){
@@ -100,37 +80,35 @@ function Validation(){ //validação de login e senha para entrar na area de per
 }
 
 function Logout(){ // botão para sair do perfil validado para troca de perfil ou saida "segura" do sistema. 
+    dataBase = JSON.parse(localStorage.getItem("user"))
+    for(let i =0; i < dataBase.length; i++){
+        if (dataBase[i].documento === JSON.parse(localStorage.getItem("online")).documento){
+            dataBase[i] = JSON.parse(localStorage.getItem("online"))
+        }
+    }
     localStorage.removeItem("online");
     location.href="index.html"; //ou window.open("home.html") para abrir em uma nova aba
 }
 
 function Add(){ //adicopnar certificados (array para os certificados)
-   let testObjeto;
-    Array.from(document.getElementsByName("addCerti")).forEach(function(element){
-    testObjeto[element.keys] = element.value;});
-    let certificado = Array.from(document.getElementsByName("addCerti")).map(function(element){
-        return element.value;}); //tentar pegar direto do formulario
-    
+    let certificado;
+     Array.from(document.getElementsByName("addCerti")).forEach(function(element){
+        certificado[element.keys] = element.value;});
+    //  let certificado = Array.from(document.getElementsByName("addCerti")).map(function(element){
+    //      return element.value;}); //tentar pegar direto do formulario 
     if (certificado){
-        if (localStorage.getItem("certificate") === null ){
-            dataCerti.push(certificado);
-                localStorage.setItem("certificate", JSON.stringify(dataCerti));
-                alert("Certificado adicionado com Sucesso!");
-                //adicionar no objeto 'user.certificado"
-        } else { 
-            dataCerti = JSON.parse(localStorage.getItem("certificate"));  
-            dataCerti.push(certificado);
-                localStorage.setItem("certificate", JSON.stringify(dataCerti));
-                alert("Certificado adicionado com Sucesso!");
-                //adicionar no objeto 'user.certificado"
-        }
+
+        let update = JSON.parse(localStorage.getItem("online"))
+        dataCerti.push(certificado);
+        update.certificados = dataCerti;    
+        alert("Certificado adicionado com Sucesso!");
+        //adicionar no objeto 'user.certificado"
+
     }else{  
         alert("Todos os campos devem ser preenchidos.");
-        }  
-            
+    }              
 }
 
-let linhasTabela= JSON.parse(localStorage.getItem('online'))
 function RemoveCert(){
     
    let confirm = prompt("Digite o nome do evento para confirmar:");
@@ -143,30 +121,36 @@ function RemoveCert(){
     };   
 }
 
-function criaTag(elemento){
+let linhasTabela= JSON.parse(localStorage.getItem('online'))
+function criaTag(elemento) {
     return document.createElement(elemento)
-}
-
-let titulo = document.querySelector("h1");
-let tabela = document.getElementById("tabela");
-let thead = criaTag("thead");
-let tbody = criaTag("tbody") 
-let tfoot = criaTag("tfoot")
-
-let indicesTabela = ["Evento", "Data Inicial", "Data Final", "Horas", "Tipo"]
-let linhaHead = criaTag("tr");
-
-function criaCelula(tag, text) {
-    tag = criaTag(tag);
-    tag.textContent = text;
-    return tag;
-}
-
-for(j = 0; j < indicesTabela.length; j++) {
-    let th = criaCelula("th", indicesTabela [j]);
-    linhaHead.appendChild(th);
-}
-thead.appendChild(linhaHead);
+    }
+    
+    let titulo = document.querySelector("section h1");
+    titulo.textContent = "A DOS ALUNOS";
+    
+    let tabela = document.getElementById("tabela");
+    
+    let thead = criaTag("thead");
+    let tbody = criaTag("tbody");
+    let tfoot = criaTag("tfoot");
+    
+    let indicesTabela = ["Nome do Aluno", "Nota 1", "Nota 2", "Nota 3", "Nota 4", "Media", "Status"];
+    let linhaHead = criaTag("tr");
+    
+    function criaCelula(tag, text) {
+        tag = criaTag(tag);
+        tag.textContent = text;
+        return tag;
+    }
+    
+    for(j = 0; j < indicesTabela.length; j++) {
+        let th = criaCelula("th", indicesTabela [j]);
+        linhaHead.appendChild(th);
+    }
+    thead.appendChild(linhaHead);
+    
+    
     for(j = 0; j < linhasTabela.length; j++) {
         let linhaBody = criaTag("tr");
     
@@ -177,10 +161,14 @@ thead.appendChild(linhaHead);
         tbody.appendChild(linhaBody);
     }
     let linhaFoot = criaTag("tr");
-    let celulaFoot = criaCelula("td","Certistack");
-    celulaFoot.setAttribute("colspan",5);
+    let celulaFoot = criaCelula("td","Colégio Floripa");
+    celulaFoot.setAttribute("colspan",7);
     linhaFoot.appendChild(celulaFoot);
     tfoot.appendChild(linhaFoot);
+    
+    tabela.appendChild(thead);
+    tabela.appendChild(tbody);
+    tabela.appendChild(tfoot);
 
 
 

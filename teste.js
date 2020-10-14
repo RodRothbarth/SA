@@ -18,9 +18,9 @@ let user = Array.from(document.getElementsByName("cadastro")).map(function(eleme
 let usern = document.getElementById("cpf");
 let pssw = document.getElementById("senha");
 
-function User (name, cpf, email, cellphone, dataNasc, pswd, lattes, interrest, university ){ //função construtora para o cadastro.
+function User (name, document, email, cellphone, dataNasc, pswd, lattes, interrest, university, account, certificates ){ //função construtora para o cadastro.
     this.nome = name;
-    this.cpf = cpf;
+    this.documento = document;
     this.email = email;
     this.dataNasc = dataNasc;
     this.interesse = interrest;
@@ -28,45 +28,47 @@ function User (name, cpf, email, cellphone, dataNasc, pswd, lattes, interrest, u
     this.university = university;
     this.site = lattes;
     this.celular = cellphone;
+    this.conta = account;
+    this.certificados = certificates;
 };
 
 function Cadastrar(){ //sistema para cadastrar um novo usuario.
-    if (ValidEmail()==false || ValidPass()==false || !user){ // confirma se os campos foram preenchidos com a mesma senha  VERIFICAR COMO ATESTAR TREU OU FALSE NO RETURN
+    if (!ValidPass() || !user){ // confirma se os campos foram preenchidos com a mesma senha  VERIFICAR COMO ATESTAR TREU OU FALSE NO RETURN
         alert("TODOS OS CAMPOS DEVEM SER PREENCHIDOS CORRETAMENTE!")
     }else{
         if (localStorage.getItem("user") === null ){
-            dataBase.push(new User(user[0], user[1], user[2], user[3], user[4], user[5], user[7], user[8], user[9]));
+            dataBase.push(new User(user[0], user[1], user[2], user[3], user[4], user[5], user[7], user[8], user[9], user[10]));
             localStorage.setItem("user", JSON.stringify(dataBase));
             alert("Cadastro Realizado com Sucesso!");
         }else{
-            dataBase = JSON.parse(localStorage.getItem("user"));
-            dataBase.push(new User(user[0], user[1], user[2], user[3], user[4], user[5], user[7], user[8], user[9]));
+            dataBase = JSON.parse(localStorage.getItem("user"))
+            dataBase.push(new User(user[0], user[1], user[2], user[3], user[4], user[5], user[7], user[8], user[9], user[10]));
             localStorage.setItem("user", JSON.stringify(dataBase));
             alert("Cadastro Realizado com Sucesso!");
         }
     } 
 }
 
-function ValidEmail(field){
-    let address = field.value.substring(0, field.value.indexOf("@"));
-    let domain = field.value.substring(field.value.indexOf("@")+1, field.value.length);
+// function ValidEmail(field){
+//     let address = field.value.substring(0, field.value.indexOf("@"));
+//     let domain = field.value.substring(field.value.indexOf("@")+1, field.value.length);
 
-    if ((address.length >=1)&&
-        (domain.length>=3)&&
-        (adress.search("@")==-1)&&
-        (domain.search("@")==-1)&&
-        (address.search(" ")==-1)&&
-        (domain.search(" ")==-1)&&
-        (domain.search(".")!=-1)&&
-        (domain.indexOf(".")>=1)&&
-        (domain.lastIndexOf(".")< domain.length - 1)){
-            document.getElementById("msgEmail").innerHTML = "E-mail Válido"
-            return true
-    }else{
-            document.getElementById("msgEmail").innerHTML = "E-mail Inválido"
-            return false
-        }
-}
+//     if ((address.length >=1)&&
+//         (domain.length>=3)&&
+//         (adress.search("@")==-1)&&
+//         (domain.search("@")==-1)&&
+//         (address.search(" ")==-1)&&
+//         (domain.search(" ")==-1)&&
+//         (domain.search(".")!=-1)&&
+//         (domain.indexOf(".")>=1)&&
+//         (domain.lastIndexOf(".")< domain.length - 1)){
+//             document.getElementById("msgEmail").innerHTML = "E-mail Válido"
+//             return true
+//     }else{
+//             document.getElementById("msgEmail").innerHTML = "E-mail Inválido"
+//             return false
+//         }
+// }
 
 function ValidPass(){
     if (user[5] === user[6]){
@@ -78,69 +80,76 @@ function ValidPass(){
         }
 }
 
+function DelUser(){
+    let toDel = JSON.parse(localStorage.getItem("online"))
+    for (let i=0; i < dataBase.length; i++){
+        if (dataBase[i].cpf === toDel.cpf){
+          alert("deletaria o que pediu")
+            // dataBase.splice(dataBase[i],1);
+           // location.href="index.html";
+        }
+    }
+}
+
 function Validation(){ //validação de login e senha para entrar na area de perfil.
     
     for (i = 0; i <= dataBase.length; i++){
         if(i == dataBase.length){
             alert("Login Incorreto");
-        }else if (dataBase[i].cpf == usern.value || dataBase[i].email == usern.value){
+        }else if (dataBase[i].documento == usern.value || dataBase[i].email == usern.value){
             if(dataBase[i].pswd == pssw.value){
                 console.log("Sucesso");
                 localStorage.setItem('online', JSON.stringify(dataBase[i]));
-                location.href="perfil.html"; // site à ser feita de perfil do usuario validado, ou window.open("home.html") para abrir em uma nova aba
+                if(user[10] === "evento"){
+                    location.href="cadastroCertificado.html"; // site à ser feita de perfil do usuario validado, ou window.open("home.html") para abrir em uma nova aba
+                }else{
+                    location.href="perfil.html"; // site à ser feita de perfil do usuario validado, ou window.open("home.html") para abrir em uma nova aba
+                }
             }else{
                 alert("Senha Incorreta");
             }
             break;
         } 
     }
-    usern.value = "";
-    pssw.value = "";
 }
 
 function Logout(){ // botão para sair do perfil validado para troca de perfil ou saida "segura" do sistema. 
+    dataBase = JSON.parse(localStorage.getItem("user"))
+    for(let i =0; i < dataBase.length; i++){
+        if (dataBase[i].documento === JSON.parse(localStorage.getItem("online")).documento){
+            dataBase[i] = JSON.parse(localStorage.getItem("online"))
+        }
+    }
     localStorage.removeItem("online");
     location.href="index.html"; //ou window.open("home.html") para abrir em uma nova aba
 }
 
-function AddHour(event, beginEvent, endEvent, hour, type){
-    this.evento = event;
-    this.beginEvent = beginEvent;
-    this.endEvent = endEvent;
-    this.horas = hour;
-    this.tipo = type; //tem 3 tipos: Oficinas, cursos extracurriculares e eventos academicos.
-}
+// function AddHour(event, beginEvent, endEvent, hour, type){
+//     this.evento = event;
+//     this.beginEvent = beginEvent;
+//     this.endEvent = endEvent;
+//     this.horas = hour;
+//     this.tipo = type; //tem 3 tipos: Oficinas, cursos extracurriculares e eventos academicos.
+// }
 
-function DelUser(){
-    let toDel = JSON.parse(localStorage.getItem("user"))
-    for (let i=0; i < dataCerti.length; i++){
-        if (dataCerti[i].cpf === toDel.cpf){
-            dataCerti.splice(dataCerti[i],1);
-        }
-    }
-}
+function Add(){ //adicopnar certificados (array para os certificados)
+    let certificado;
+     Array.from(document.getElementsByName("addCerti")).forEach(function(element){
+        certificado[element.keys] = element.value;});
+    //  let certificado = Array.from(document.getElementsByName("addCerti")).map(function(element){
+    //      return element.value;}); //tentar pegar direto do formulario 
+    if (certificado){
 
-function Add(){
-    let certificado = Array.from(document.getElementsByName("addCerti")).map(function(element){
-        return element.value;});
-    let dataFormatada = ("0" + certificado[1].getDate()).substr(-2) + "/" + ("0" + (certificado[1].getMonth() + 1)).substr(-2) + "/" + certificado[1].getFullYear();
-    let dayFormat = ("0" + certificado[2].getDate()).substr(-2) + "/" + ("0" + (certificado[2].getMonth() + 1)).substr(-2) + "/" + certificado[2].getFullYear(); //uso para formatar a data em pt-br
+        let update = JSON.parse(localStorage.getItem("online"))
+        dataCerti.push(certificado);
+        update.certificados = dataCerti;    
+        localStorage.setItem("online", JSON.stringify(update));
+        alert("Certificado adicionado com Sucesso!");
+        //adicionar no objeto 'user.certificado"
 
-    if (certificado[0], certificado[1] && dayFormat && dataFormatada){
-        if (localStorage.getItem("certificate") === null ){
-            dataCerti.push(new AddHour (certificado[0], dataFormatada, dayFormat, certificado[3], certificado[4]));
-                localStorage.setItem("certificate", JSON.stringify(dataCerti));
-                alert("Certificado adicionado com Sucesso!");
-        } else { 
-            dataCerti = JSON.parse(localStorage.getItem("certificate"));  
-            dataCerti.push(new AddHour (certificado[0], dataFormatada, dayFormat, certificado[1], certificado[2]));
-            localStorage.setItem("certificate", JSON.stringify(dataCerti));
-            alert("Certificado adicionado com Sucesso!");
-        }
-    }else{   
+    }else{  
         alert("Todos os campos devem ser preenchidos.");
-        }  
-            
+    }              
 }
 
 // let linhasTabela= []
@@ -204,15 +213,15 @@ function Add(){
     // };
 
 
-   "user" : {nome: "rodrigo", ..... certificado:  }, {nome: "rafa", ..... certificado:  },{nome: "luci", ..... certificado:  }
-   "online": {nome: "rodrigo", ..... certificado:  }
+//    "user" : {nome: "rodrigo", ..... certificado:  }, {nome: "rafa", ..... certificado:  },{nome: "luci", ..... certificado:  }
+//    "online": {nome: "rodrigo", ..... certificado:  }
 
-   table: online.certificado
+//    table: online.certificado
 
-   add() + certificado
+//    add() + certificado
 
 
-   let test = {nome: "rodrigo", ... certificado: [[1],[2],[3]]}
-   let test = {nome: "rodrigo", ... certificado: [{1},{2},{3}]}
+//    let test = {nome: "rodrigo", ... certificado: [[1],[2],[3]]}
+//    let test = {nome: "rodrigo", ... certificado: [{1},{2},{3}]}
 
-   test.certificado = dataCerti.push(test.certificado) ^
+//    test.certificado = dataCerti.push(test.certificado) ^
