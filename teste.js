@@ -18,7 +18,7 @@ let user = Array.from(document.getElementsByName("cadastro")).map(function(eleme
 let usern = document.getElementById("cpf");
 let pssw = document.getElementById("senha");
 
-function User (name, document, email, cellphone, dataNasc, pswd, lattes, interrest, university, account, certificates ){ //função construtora para o cadastro.
+function User (name, email, pswd, account, document, cellphone, dataNasc, university, interrest, lattes, certificates ){ //função construtora para o cadastro.
     this.nome = name;
     this.documento = document;
     this.email = email;

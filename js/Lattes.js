@@ -12,7 +12,7 @@ let usern = document.getElementById("cpf");
 let pssw = document.getElementById("senha");
 
 function User (name, documents, email, cellphone, dataNasc, pswd, lattes, interrest, university, account, certificates ){ //função construtora para o cadastro.
-    this.nemai = name;
+    this.nome = name;
     this.documento = documents;
     this.email = email;
     this.dataNasc = dataNasc;
@@ -24,6 +24,11 @@ function User (name, documents, email, cellphone, dataNasc, pswd, lattes, interr
     this.conta = account;
     this.certificados = certificates;
 };
+
+function mostraCadastro(){
+    $(".cadastro").show();
+    $(".login").hide();
+}
 
 function Cadastrar(){ //sistema para cadastrar um novo usuario.
     if (!ValidPass() || !user){ // confirma se os campos foram preenchidos com a mesma senha  VERIFICAR COMO ATESTAR TREU OU FALSE NO RETURN

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acidionar Certificado</title>
+</head>
+<body>
+    <form onsubmit="return Add()"> 
+        <input name="addCerti" type="text" placeholder="Evento">
+        <input name="addCerti" type="date" placeholder="Início do evento">
+        <input name="addCerti" type="date" placeholder="Termino do evento">
+        <input name="addCerti" type="number" placeholder="Número de horas">
+        <select name="addCerti">
+            <option value="oficina">Oficina</option>
+            <option value="extracurricular">Curso Extracurricular</option>
+            <option value="eventos">Eventos Acadêmicos</option>
+        </select>
+        <input type="submit"> 
+          
+    </form>
+    <button onclick="RemoveCert()">Cadastrar</button>
+    <script src="teste.js"></script>
+</body>
+</html>
