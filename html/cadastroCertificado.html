@@ -12,12 +12,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <form class="formCadastroCertificados" onsubmit="return Add()"> 
+    <form class="formCadastroCertificados" id="addcerti" name="addCerti"> 
         <div>
             <h3 id="titulo_Form">CADASTRO DE CERTIFICADO</h3>
         </div>
         <div class="form-group">
-            <input name="addCerti" type="text" placeholder="Evento" class="form-control">
+            <input name="addCert" type="text" placeholder="Evento" class="form-control">
         </div>
         <div class="row">
             <div class="form-group col">
@@ -28,10 +28,10 @@
             </div>
         </div>
         <div class="form-group">
-            <input name="addCerti" type="number" placeholder="Número de horas" class="form-control">
+            <input name="addCert" type="number" placeholder="Número de horas" class="form-control">
         </div>
         <div class="form-group">
-            <select name="addCerti" class="form-control">
+            <select name="addCert" class="form-control">
                 <option value="oficina">Oficina</option>
                 <option value="extracurricular">Curso Extracurricular</option>
                 <option value="eventos">Eventos Acadêmicos</option>
@@ -42,11 +42,11 @@
         <button onclick="RemoveCert()" class="btn btn-primary form-control">Cadastrar</button>
  
     </form>
-    <script src="Lattes.js"></script>
+    <script src="/js/VizualizarCertificado.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <script src="jquery.mask.min.js"></script>
+    <script src="/js/jquery.mask.min.js"></script>
 </body>
 </html>
 
