@@ -13,65 +13,74 @@ function mostraCadastro(){ //muda a mostragem da pagina de login para cadastro
 };
 
 //função criadora de objeto para adição de informação em cadastro
-function User(name, email, senha, documento, telefone, dataNasc, instituicao, area, lattes, certificados){
+function User(name, email, senha, documento, telefone, area, site, certificados){
     this.nome = name;
     this.email = email;
     this.senha = senha;
     this.documento = documento;
     this.telefone = telefone;
-    this.dataNasc = dataNasc;
-    this.instituicao = instituicao;
-    this.area = area;
-    this.lattes = lattes;
+    this.atuacao = area;
+    this.site = site;
     this.certificados = certificados;
 }
 
-function conteudoForm(){//cria o objeto a ser utilizado no cadastro
-    let dadosForm = Array.from(document.getElementsByName("cadastro")).map(function(element){return element.value;});
-        let nasc = new Date(user[7].split('-').join('/')).toLocaleDateString('pt-br')
-        let form = new User(dadosForm[0], dadosForm[1], dadosForm[2], dadosForm[4], dadosForm[5], nasc, dadosForm[8], dadosForm[9])
+function Certificado(documento, evento, dataI, dataF, horas, tipo){
+    this.documento = documento;
+    this.evento = evento;
+    this.dataIni = dataI
+    this.dataFim = dataF;
+    this.horas = horas;
+    this.tipo = tipo;
+}
+
+function FormularioCertificados(){ //constroi o objeto para utilizar na criação da tabela e armazenamento dos certificados no localStorage
+    let dadosForm = Array.from(document.getElementsByName("addCerti")).map(function(element){
+        return element.value;});
+        let inicioEvento = new Date(dadosForm[2].split('-').join('/')).toLocaleDateString('pt-br')
+        let fimEvento = new Date(dadosForm[3].split('-').join('/')).toLocaleDateString('pt-br')
+        let form = new Certificado(dadosForm[0], dadosForm[1], inicioEvento, fimEvento, dadosForm[4],dadosForm[5])
         return form 
 }
-function CadastrarUser(){ //sistema para cadastrar um novo usuario.
-    let user = conteudoForm()
+
+function Add(){ //adiciona certificados 
+    let certificados = FormularioCertificados()
+    if (localStorage.getItem('certificate') === null){
+        dataCerti.push(certificados)
+        localStorage.setItem('certificate', JSON.stringify(dataCerti))   
+        alert("Certificado adicionado com Sucesso!");
         
+    }else{
+        dataCerti = JSON.parse(localStorage.getItem('certificate')) 
+        dataCerti.push(certificados) 
+        localStorage.setItem('certificate', JSON.stringify(dataCerti))   
+        alert("Certificado adicionado com Sucesso!");
+    }              
+}
+
+function FormularioUsuario(){//cria o objeto a ser utilizado no cadastro
+    let user = Array.from(document.getElementsByName("cadastro")).map(function(element){return element.value;}); 
+    let form = new User(user[0], user[1], user[2], user[4], user[5], user[6], user[7], user[8]); //mexer!!!
+        return form; 
+};
+
+function CadastrarUser(){ //sistema para cadastrar um novo usuario.
+    let novo = FormularioUsuario();
+    
     if (localStorage.getItem("user") === null ){
-        dataBase.push(user);
+        dataBase.push(novo);
         localStorage.setItem("user", JSON.stringify(dataBase));
         alert("Cadastro Realizado com Sucesso!");
         $(".login").show();
         $(".cadastro").hide();
     }else{
         dataBase = JSON.parse(localStorage.getItem("user"))
-        dataBase.push(user);
+        dataBase.push(novo);
         localStorage.setItem("user", JSON.stringify(dataBase));
         alert("Cadastro Realizado com Sucesso!");
         $(".login").show();
         $(".cadastro").hide();
     }        
 }
-
-function Validation(){//valida o login para entrada no perfil do usuario ou cliente desejado
-    dataBase = JSON.parse(localStorage.getItem('user'))
-    let usern = document.getElementById("cpf");
-    let pssw = document.getElementById("senha");
-
-    for(let i = 0; i < dataBase.length; i++){
-        if(dataBase[i].documento === usern.value){
-            if(dataBase[i].senha === pssw.value){
-                localStorage.setItem("online", JSON.stringify(dataBase[i]))
-            }else{
-                alert("Senha Incorreta!");
-            };
-            break;
-        }else{
-            alert("Login Incorreto!")
-        };
-    };
-
-};
-
-
 
 function ValidPass(){
     let test = document.getElementById("senhac").value;
@@ -91,7 +100,6 @@ function ChamarCnpj(){
     if (ValidarCNPJ(cnpj) !== true){
         alert("CNPJ Invalido!")
         cnpj = ""
-        alert(cnpj)
     }
 }
 
@@ -125,8 +133,7 @@ function ValidarCNPJ(cnpj) {
             pos = 9;
     }
     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-    if (resultado != digitos.charAt(0))
-        return false;
+    if (resultado != digitos.charAt(0)) return false;
          
     tamanho = tamanho + 1;
     numeros = cnpj.substring(0,tamanho);
@@ -134,13 +141,32 @@ function ValidarCNPJ(cnpj) {
     pos = tamanho - 7;
     for (i = tamanho; i >= 1; i--) {
       soma += numeros.charAt(tamanho - i) * pos--;
-      if (pos < 2)
-            pos = 9;
+      if (pos < 2) pos = 9;
     }
     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-    if (resultado != digitos.charAt(1))
-          return false;
+    if (resultado != digitos.charAt(1)) return false;
            
     return true;
     
 }
+
+function Validation(){//valida o login para entrada no perfil do usuario ou cliente desejado
+    dataBase = JSON.parse(localStorage.getItem('user'));
+    let usern = document.getElementById("documento");
+    let pssw = document.getElementById("senha");
+
+    for(let i = 0; i < dataBase.length; i++){
+        if(dataBase[i].documento === usern.value){
+            if(dataBase[i].senha === pssw.value){
+                localStorage.setItem("online", JSON.stringify(dataBase[i]))
+                location.href="/html/home.html";
+            }else{
+                alert("Senha Incorreta!");
+            };
+            break;
+        }else{
+            alert("Login Incorreto!")
+        };
+    };
+
+};

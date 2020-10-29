@@ -12,83 +12,97 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <div class="login">
+    <div class="container">
+        <img src="images/logo.jpg" alt="">
+    </div>
+    <div class="container-interativo">
+        <div class="seta">
+            <a href="#" onclick="mostraWelcome()" id="seta" class="arrow-back"></a>
+        </div>
+        <!-- <label for="seta" style="margin-left: 30px; margin-top: 12px; position: absolute; color: #1E1E1E;">VOLTAR</label> -->
+        <div class="apresentacao">
+            <h1>Bem vindo ao CertiStack!</h1>
+            <h4>O Certistack realiza de forma unificada e automática as declarações de horas extracurriculares. Tem a opção de subir na interface o certificado de forma online. Disponível de modo constante para pesquisa do usuário e comprovação das horas.</h4>
+            <div class="form-row">
+                <div class="col">
+                    <button type="button" class="form-control btn btn-dark" id="btnLogin" onclick="mostraLogin()" style="width: 300px; height: 60px; background-color: #0AC5A8 !important;">LOGIN</button>
+                </div>
+                <div class="col">
+                    <button type="button" class="form-control btn btn-dark" id="btnLogin" onclick="mostraCadastro()" style="height: 60px; background-color: #0AC5A8 !important">CADASTRAR-SE</button>
+                </div>
+            </div>
+        </div>
+        <div class="login">
             <div class="form-group">
                 <h3 id="titulo_Login">ENTRAR</h3>
             </div>
-            <div class="form-group">
-                <input type="text" id="cpf" name="login" placeholder="CPF" class="cpf form-control" minlength="11">
+            <div  class="cpf form-group">
+                <input onblur="ChamarCnpj()" type="text" id="documento" name="login" placeholder="CNPJ" style="width: 300px" class="documento form-control" minlength="14" onblur="ChamarCnpj()">
             </div>
             <div class="senha form-group">
                 <input type="password" id="senha" name="login" placeholder="Senha" class="form-control" maxlength="16" minlength="6">
             </div>
             <div class="form-group">
-                <button type="button" class="form-control btn btn-primary" id="btnLogin" onclick="Validation()" style="width: 300px;">ENTRAR</button><br>
-                <a href="#" onclick="mostraCadastro()">Não possui cadastro?</a><br>
-                <a href="teste.html">Esqueceu sua Senha?</a>
+                <button type="button" class="form-control btn btn-dark" id="btnLogin" onclick="Validation()" style="width: 300px; background-color: #0AC5A8;">ENTRAR</button><br>
+                <a href="" style="color: #ffffff">Esqueceu sua Senha?</a>
             </div>
     </div>
-    <div>
-        &nbsp;
     </div>
     <div class="cadastro">
         <div>
             <h3 id="titulo_Form">CADASTRO</h3>
         </div>
-        <form onsubmit="return CadastrarUser()"> 
+        <form onsubmit="return Cadastrar()"> 
                 <div class="form-group">
-                    <input type="text" id="nome" name="cadastro" placeholder="Nome completo" class="form-control" required>
+                    <input type="text" id="nome" name="cadastro" placeholder="Nome da Instituição" class="form-control">
                 </div>
                 <div class="form-group">
-                    <input type="email" id="email" name="cadastro" placeholder="E-mail" class="form-control" required>
+                    <input type="text" id="email" name="cadastro" placeholder="E-mail" class="form-control">
                 </div>
-            <div class="row">
-                <div class="form-group col">
-                    <input type="password" id="senhac" name="cadastro" placeholder="Senha" class="form-control" maxlength="16" minlength="6" required>
-                </div>
-                <div class="form-group col">
-                    <input onblur="ValidPass()" type="password" id="passc" name="cadastro" placeholder="Confirme sua senha" class="form-control" maxlength="16" minlength="6" required>
-                </div>
-            </div> 
             <div class="form-row">
                 <div class="form-group col">
-                    <input onblur="ChamarCnpj()" type="text" id="documento" name="cadastro" placeholder="CNPJ" class="documento form-control" minlength="14" required>
+                    <input type="password" id="senha" name="cadastro" placeholder="Senha" class="form-control" onblur="ValidPass()">
                 </div>
                 <div class="form-group col">
-                    <input type="text" id="celular" name="cadastro" placeholder="Número de celular" class="numCelular form-control" minlength="10" required>
-                </div>
-                <div class="form-group col">
-                    <input type="date" id="dataNasc" name="cadastro" placeholder="Data de nascimento" class="dataNasc form-control" required>
+                    <input type="password" id="senha2" name="cadastro" placeholder="Confirme sua senha" class="form-control" onblur="ValidPass()">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col">
-                    <input type="text" id="faculdade" name="cadastro" placeholder="Instituição" class="form-control" required>
+                    <input type="text" id="celular" name="cadastro" placeholder="Número de telefone" class="numCelular form-control">
                 </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col">
+                    <input onblur="ChamarCnpj()" type="text" id="documento" name="login" placeholder="CNPJ" class="documento form-control" minlength="14">
+                </div>
+            </div>
+ 
+            <div class="form-row">
                 <div class="form-group col">
                     <!-- Mudar para select -->
-                    <select name="cadastro" id="select" class="form-control" required>
-                        <option value="">Área de conhecimento</option>
-                        <option value="Saúde">Ciências da Saúde</option>
-                        <option value="Agrárias">Ciências Agrárias</option>
-                        <option value="Biológicas">Ciências Biológicas</option>
-                        <option value="Exatas e da Terra">Ciências Exatas e da Terra</option>
-                        <option value="Sociais Aplicadas">Ciências Sociais Aplicadas</option>
-                        <option value="Humanas">Ciências Humanas</option>
-                        <option value="Engenharias">Engenharias</option>
-                        <option value="Lingüística, Letras e Artes">Lingüística, Letras e Artes</option>
+                    <select id="select" class="form-control" >
+                        <option value="">Tipo de Instituição</option>
+                        <option value="Universidade">Universidade</option>
+                        <option value="Faculdade">Faculdade</option>
+                        <option value="Centro Universitário">Centro Universitário</option>
+                        <option value="Educação Tecnológica">Educação Tecnológica</option>
+                        <option value="Instituto Federal">Instituto Federal</option>
                     </select>
                 </div>
                 <div class="form-group col">
-                    <input type="text" id="lattes" name="cadastro" placeholder="Lattes " class="form-control" required>
+                    <input type="text" id="site" name="cadastro" placeholder="Site" class="form-control" >
                 </div>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary form-control" id="btnCadastro" style="width: 100px; border-radius: px;">Cadastrar</button>
+                <button type="submit" class="btn btn-dark form-control" id="btnCadastro" style="width: 150px; border-radius: px;  background-color: #0AC5A8;">CADASTRAR</button>
             </div>
+            <!-- adicionar
+            departamento
+            centro de ensino -->
         </form> 
     </div>
-    <script src="/js/login_cadastro.js"></script>
+    <script src="/js/CertiStack.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>

@@ -8,13 +8,13 @@ let dataCerti = [];
 
 function User (name, cpf, email, cellphone, dataNasc, pswd, lattes, interrest, university ){ //função construtora para o cadastro.
     this.nome = name;
-    this.cpf = cpf;
+    this.documento = cpf;
     this.email = email;
     this.dataNasc = dataNasc;
     this.interesse = interrest;
-    this.pswd = pswd;
-    this.university = university;
-    this.site = lattes;
+    this.senha = pswd;
+    this.universidade = university;
+    this.lattes = lattes;
     this.celular = cellphone;
 };
 
@@ -206,3 +206,30 @@ tfoot.appendChild(linhaFoot);
 tabela.appendChild(thead);
 tabela.appendChild(tbody);
 tabela.appendChild(tfoot);
+
+
+function conteudoForm(){//cria o objeto a ser utilizado no cadastro
+    let user = Array.from(document.getElementsByName("cadastro")).map(function(element){return element.value;});
+    let nasc = new Date(user[6].split('-').join('/')).toLocaleDateString('pt-br'); 
+    let form = new User(user[0], user[1], user[2], user[4], user[5], nasc, user[7], user[8], user[9]);
+        return form; 
+};
+
+function CadastrarUser(){ //sistema para cadastrar um novo usuario.
+    let novo = conteudoForm();
+    
+    if (localStorage.getItem("user") === null ){
+        dataBase.push(novo);
+        localStorage.setItem("user", JSON.stringify(dataBase));
+        alert("Cadastro Realizado com Sucesso!");
+        $(".login").show();
+        $(".cadastro").hide();
+    }else{
+        dataBase = JSON.parse(localStorage.getItem("user"))
+        dataBase.push(novo);
+        localStorage.setItem("user", JSON.stringify(dataBase));
+        alert("Cadastro Realizado com Sucesso!");
+        $(".login").show();
+        $(".cadastro").hide();
+    }        
+}

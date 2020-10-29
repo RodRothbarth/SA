@@ -5,7 +5,7 @@ $(document).ready(function(){
     $(".dataCertFim").mask("00/00/0000");
   });
 
-  const dataClient = []; //ou deixar let?
+  let dataClient = [];
 
   function Cliente(name, email, documento, telefone, dataNasc, instituicao, area, lattes, certificados){
     this.nome = name;
@@ -67,7 +67,7 @@ function CadastrarCliente(){ //sistema para cadastrar um novo usuario.
     }        
 }
 
-function getDataCertificate() {
+function getDataCliente() {
     let array = [];
 
     JSON.parse(localStorage.getItem("cliente")).forEach(function(info){ 
@@ -78,7 +78,7 @@ function getDataCertificate() {
 }
 
 
-let linhasTabela = getDataCertificate() //criação de tabela para mostrar os certificados armazenados no perfil do cliente.
+let linhasTabela = getDataCliente() //criação de tabela para mostrar os certificados armazenados no perfil do cliente.
 
 function criaTag(elemento) {
     return document.createElement(elemento)
@@ -122,3 +122,20 @@ tfoot.appendChild(linhaFoot);
 tabela.appendChild(thead);
 tabela.appendChild(tbody);
 tabela.appendChild(tfoot);
+
+function RemoveCliente(){
+    dataClient = localStorage.getItem("cliente")
+    let confirm = prompt("Digite o nome do evento para confirmar:")
+    
+    for (let i=0; i > dataClient.length; i++){
+        if(dataClient[i].evento === confirm){
+            dataClient = dataClient.splice(dataBase[i],1);
+            localStorage.setItem("cliente", JSON.stringify(dataClient));
+        }
+    }
+}
+
+function Logout(){ // botão para sair do perfil validado para troca de perfil ou saida "segura" do sistema. 
+    localStorage.removeItem("online");
+    location.href="/html/cadastro_login.html"; //ou window.open("home.html") para abrir em uma nova aba
+}
