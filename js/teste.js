@@ -233,3 +233,6 @@ function CadastrarUser(){ //sistema para cadastrar um novo usuario.
         $(".cadastro").hide();
     }        
 }
+
+let inicioEvento = new Date(dadosForm[2].split('-').join('/')).toLocaleDateString('pt-br') //transforma data para o isistema brasileiro
+

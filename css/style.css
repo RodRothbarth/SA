@@ -21,6 +21,11 @@ body, html{
     height: 100%;
     width: 100%;
 }
+
+.hidden{
+    display:none;
+}
+
 .container{
     /* background-color: #1E1E1E; */
     background-color: #F5F5F5;
