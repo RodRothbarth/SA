@@ -21,15 +21,15 @@ function Certificado(evento, dataI, dataF, horas, tipo, id){
     this.id = id;
 }
 
-function contForm(){ //constroi o objeto para utilizar na criação da tabela e armazenamento dos certificados no localStorage
+function FormCertificados(){ //constroi o objeto para utilizar na criação da tabela e armazenamento dos certificados no localStorage
     let dadosForm = Array.from(document.getElementsByName("addCerti")).map(function(element){
         return element.value;});
         let form = new Certificado(dadosForm[0],dadosForm[1], dadosForm[2],dadosForm[3],dadosForm[4])
         return form 
 }
 
-function Add(){ //adiciona certificados 
-    let certificados = contForm()
+function AdicionarCertificados(){ //adiciona certificados 
+    let certificados = FormCertificados()
     if (localStorage.getItem('certificate') === null){
         dataCerti.push(certificados)
         localStorage.setItem('certificate', JSON.stringify(dataCerti))   
@@ -56,12 +56,12 @@ $('th').on('click', function(){
 
     if(ordem == 'decr'){
         $(this).data('ordem', "cresc")
-        getDataCertificate() = getDataCertificate().sort((a,b) => a[coluna]>b[coluna] ? 1 : -1)
+        arrayTabela = arrayTabela.sort((a,b) => a[coluna]>b[coluna] ? 1 : -1)
     }else{
         $(this).data('ordem', "decr")
-        getDataCertificate() = getDataCertificate().sort((a,b) => a[coluna]<b[coluna] ? 1 : -1)
+        arrayTabela = arrayTabela.sort((a,b) => a[coluna]<b[coluna] ? 1 : -1)
     }  
-    tabela(getDataCertificate())  
+    tabela(arrayTabela)  
 })
 
 tabela(getDataCertificate())
@@ -89,8 +89,8 @@ function tabela(dados){
                         </td> 
                          
                    </tr>`
-        $('#tabela').append(row)
-        
+        tabela.innerHTML += row
+
         $(`#edita-${dados[i].id}`).on('click', EditarLinha)
         $(`#deleta-${dados[i].id}`).on('click', DeletaLinha)
         $(`#confirma-${dados[i].id}`).on('click', ConfirmaDel)
@@ -111,17 +111,15 @@ function EditarLinha(){
     let dataI = arrayTabela[`${idLinha}`].dataIni
     let dataF = arrayTabela[`${idLinha}`].dataFim
     let horas = arrayTabela[`${idLinha}`].horas
-    let tipo = arrayTabela[`${idLinha}`].tipo
-    
+    let tipo = arrayTabela[`${idLinha}`].tipo    
      
     $(this).parents('tr').find(`td:eq(0)`).html(`<input id='cpf-${idLinha}' type="text" value="${cpf}">`)
     $(this).parents('tr').find(`td:eq(1)`).html(`<input id='evento-${idLinha}' type="text" value="${evento}">`)
-    $(this).parents('tr').find(`td:eq(2)`).html(`<input id='dataI-${idLinha}' class="dataCertInicio" "type="text" value="${dataI}">`)
-    $(this).parents('tr').find(`td:eq(3)`).html(`<input id='dataF-${idLinha}' class="dataCertFim" type="text" value="${dataF}">`)
+    $(this).parents('tr').find(`td:eq(2)`).html(`<input id='dataI-${idLinha}' class="dataCertInicio" "type="text" value="${dataI}">`).mask('00/00/0000')
+    $(this).parents('tr').find(`td:eq(3)`).html(`<input id='dataF-${idLinha}' class="dataCertFim" type="text" value="${dataF}">`).mask('00/00/0000')
     $(this).parents('tr').find(`td:eq(4)`).html(`<input id='horas-${idLinha}' type="number" value="${horas}">`)
     $(this).parents('tr').find(`td:eq(5)`).html(`<input id='tipo-${idLinha}' type="text" value="${tipo}">`)
     
-    console.log(arrayTabela)
     editar.addClass('hidden')
     deletar.addClass('hidden')
     cancelar.removeClass('hidden')
@@ -149,16 +147,11 @@ function ConfirmaEdicao(){
     arrayTabela[`${idLinha}`].horas = horas
     arrayTabela[`${idLinha}`].tipo = tipo
 
-    // myArray[idLinha].dataIni = $(this).parents('tr').find(`td:eq(2)`).html(`<input name='linha' type="date" value="${dataI}">`).val()
-    // myArray[idLinha].dataFim = $(this).parents('tr').find(`td:eq(3)`).html(`<input name='linha' type="date" value="${dataF}">`).val()
-    // myArray[idLinha].horas = $(this).parents('tr').find(`td:eq(4)`).html(`<input name='linha' type="number" value="${horas}">`).val()
-    // myArray[idLinha].tipo = $(this).parents('tr').find(`td:eq(5)`).html(`<input name='linha' type="text" value="${tipo}">`).val()
-
     localStorage.setItem('certificate', JSON.stringify(arrayTabela))
-    editar.removeClass('hidden');
-    deletar.removeClass('hidden');
-    cancelar.addClass('hidden');
-    salvar.addClass('hidden');
+    editar.removeClass('hidden')
+    deletar.removeClass('hidden')
+    cancelar.addClass('hidden')
+    salvar.addClass('hidden')
 }
 
 function CancelaEdit(){
