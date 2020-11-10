@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="shortcut icon" href="imagens/logo.png">
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- BOOSTRAP -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <!-- jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- SLICK -->
+  <link rel="stylesheet" type="text/css" href="slick-theme.css" />
+  <link rel="stylesheet" type="text/css" href="slick.css" />
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+</head>
+
+<body onload="PerfilOnline()">
+  <div class="container-large">
+    <div class="nav">
+        <div class="logo">
+          <a href="home.html"><img src="imagens/logo_certistack2.png" style="position: relative; right: 28%; padding: 15px;" alt="error"></a>
+        </div>
+        <div class="usuario-nav">
+          <i class="far fa-building fa-2x"></i>
+            <div class="dropdown">
+                <button class="dropbtn" style="margin: 2px 7px; font-size: 17px; font-family: 'Roboto';" id="nome_usuario"></button>
+                <div class="dropdown-content">
+                    <a onclick="Logout()" href="cadastro-login.html">Sair</a>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="menu_navegacao" >
+    <div class="itens_list">
+
+      <a href="perfil.html" class="item">
+        Perfil
+        <i class="fas fa-address-card fa-3x"></i>
+      </a>
+        
+      <a href="certificados.html" class="item">
+        Certificados
+        <i class="fas fa-scroll fa-3x"></i>
+      </a>
+      <a href="participantes.html" class="item">
+        Participantes
+        <i class="fas fa-user-graduate fa-3x"></i>
+      </a>
+      <a class="item" onclick="rollInfos()">
+        Mais sobre a plataforma
+        <i class="fas fa-info fa-3x"></i>
+      </a>
+
+    </div>
+  </div>
+  <div class="home">
+    <div class="apresentacao">
+      <h1>Veja como funciona nossa plataforma!</h1>
+      <div class="carousel">
+        <div><img src="imagens/slider-images/img1.jpg" alt=""></div>
+        <div><img src="imagens/slider-images/img2.jpg" alt=""></div>
+        <div><img src="imagens/slider-images/img3.jpg" alt=""></div>
+      </div>
+    </div>
+    <div class="apresentacao-devs">
+      <h1>Desenvolvedores</h1>
+      <div class="devs">
+        <div class="card">
+          <div class="top-card">
+            <h4>Luciano Jr.</h4>
+          </div>
+          <div class="mid-card">
+            <img src="imagens/card-images/card_luciano.jpg" alt="CertiStack">
+          </div>
+          <div class="bottom-card">
+            <span></span>
+          </div>
+          <div>
+            &nbsp;
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="top-card">
+            <h4>Rafael Matos</h4>
+          </div>
+          <div class="mid-card">
+            <img src="imagens/card-images/card_rafael.jpg" alt="CertiStack">
+          </div>
+          <div class="bottom-card">
+            <span></span>
+          </div>
+          <div>
+            &nbsp;
+          </div>
+        </div>
+        <div class="card">
+          <div class="top-card">
+            <h4>Rodrigo Rothbarth</h4>
+          </div>
+          <div class="mid-card">
+            <img src="imagens/card-images/card_rodrigo.jpg" alt="CertiStack">
+          </div>
+          <div class="bottom-card">
+            <span></span>
+          </div>
+          <div>
+            &nbsp;
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+  </div>
+  <div class="sub-footer">
+    <span>Copyright © 2020 CertiStack. Todos os Direitos reservados.</span>
+  </div>
+  <script src="CertiStack.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <!-- slick -->
+  <script type="text/javascript" src="slick.min.js"></script>
+  <script src="jquery.mask.min.js"></script>
+</body>
+
+</html>

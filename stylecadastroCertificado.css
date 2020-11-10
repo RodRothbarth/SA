@@ -1,0 +1,162 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html {
+    background-color: rgba(225, 234, 242, 0.9);
+    background-image: linear-gradient( rgb(225,234,242), rgb(225, 234, 223), rgb(255, 22340, 222));
+    font-family: 'Segoe UI', Tahoma;
+    min-height: 550px;
+    background-attachment: fixed;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image:url(fundoForm.png);
+    background-attachment: fixed;
+    background-size: 20%;
+    background-repeat: no-repeat;
+ }
+
+#formulario {
+    width: 500px;
+    margin: 50px auto;
+    text-align: center;
+    position: relative;
+}
+
+#formulario fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+
+    box-shadow: 0 0 15px 1 px rgba(0,0,0, 0.4);
+    padding: 20px 30px;
+
+    box-sizing: border-box;
+    width: 80%;
+    margin: 0 10%;
+
+}
+
+#formulario input, #formulario textarea {
+    padding: 10px;
+    border: 1px solid rgba(38, 128, 101, 0.9);
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    outline: none;
+    font: 14px 'Segoe UI', Tahoma;
+    color: rgb(4, 64, 67);
+}
+#formulario p {
+    font: 20px  'Segoe UI', Tahoma;
+    background-color:  rgb(0, 90, 153) rgb(4, 64, 67);
+}
+
+#formulario h1 {
+    font: 18px  'Segoe UI', Tahoma;
+    color:  rgb(4, 64, 67);
+    width: 100%;
+    float: left;
+    text-align: center;
+    margin-bottom: 2%;
+}
+#formulario h2 {
+    font: 18px  'Segoe UI', Tahoma;
+    color:  rgb(4, 64, 67);
+    width: 100%;
+    float: left;
+    text-align: center;
+    margin-bottom: 2%;
+}
+#formulario h3 {
+    font: 25px  'Segoe UI', Tahoma;
+    color:  rgb(4, 64, 67);
+    width: 100%;
+    float: left;
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+#formulario select {
+    padding: 10px;
+    border: 1px solid rgba(38, 128, 101, 0.9);
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    outline: none;
+    font: 14px 'Segoe UI', Tahoma;
+    color: rgb(4, 64, 67);
+}
+section {
+    float:none;
+    width:550px;
+    margin:100px auto;
+    color:rgb(255,255,255);
+    font-size: 15px;
+    text-align: center;
+}
+section table {
+    float: left;
+    width: 100%;
+    height: auto;
+    min-height: 200px;
+    margin:0;
+    padding:0;
+    border:2px solid rgb(255, 255, 255);
+    background-color: rgb(210, 210, 210);
+    border-spacing: 0;
+    border-collapse: collapse;
+    box-shadow: 0 0 30px 0 rgb (0,0,0);
+    }
+
+section table thead {
+    color:rgb(255, 255, 255);
+    background-color: rgb(100,100,100);
+}
+
+section table thead tr th {
+    padding: 7px 5 px;
+    font-size: 12px;
+    text-align: center;
+    color: rgb(255,215,0);
+    border: solid rgb(255,255,255);
+    border-bottom-width: 1px;
+    border-right-width: 1px;
+}
+section table thead tr th:last-child {
+    border-right-width: 0px;
+}
+
+section table tbody {
+    background-color: rgb(0, 0, 0);
+}
+section table tbody tr td {
+    padding: 3px 5px;
+    border: 0 solid rgb(255, 255, 255);
+    font-size: 12px;
+    border-bottom-width: 1px;
+    border-right-width: 1px;
+}
+
+section table tr.listras {
+    background-color: rgba(255,255,255,0.2);
+}
+
+section table tfoot {
+    color:rgb(255, 255, 255);
+    background-color: rgb(0,0,0);
+}
+
+section table foot tr td {
+    font-size: 30px;
+    text-align: center;
+}
+button {
+    padding: 10px 20px;
+    border:2px solid rgb(255, 255, 255);
+    background-color: rgb(0, 90, 153) rgb(4, 64, 67);
+    border: 1px solid rgba(38, 128, 101, 0.9);
+
+}

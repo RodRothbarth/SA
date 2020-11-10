@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link REL="SHORTCUT ICON" HREF="/favicon.ico">
+  <title>Participantes</title>
+  <link rel="shortcut icon" href="imagens/logo.png">
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- BOOSTRAP -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <!-- jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+</head>
+
+<body onload="tabelaParticipantes(getDataCliente()); PerfilOnline()">
+  <div class="container-large">
+    <div class="nav">
+      <div class="logo">
+        <a href="home.html"><img src="imagens/logo_certistack2.png" style="position: relative; right: 28%; padding: 15px;" alt="error"></a>
+      </div>
+      <div class="itens">
+        <a href="home.html" class="a-efeito">Home</a>
+        <a href="perfil.html" class="a-efeito">Perfil</a>
+        <a href="certificados.html" class="a-efeito">Certificados</a>
+        <a href="participantes.html" class="a-efeito ativo">Participantes</a>
+      </div>
+      <div class="usuario-nav">
+        <i class="far fa-building fa-2x"></i>
+        <span style="margin: 2px 7px;">Olá</span>
+        <div class="dropdown">
+          <button class="dropbtn" id="nome_usuario"></button>
+          <div class="dropdown-content">
+            <a onclick="Logout()" href="cadastro-login.html">Sair</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="participantes">
+    <div class="apresentacao">
+      <h1>Cadastre seus Participantes</h1>
+    </div>
+    <div class="cadastro-participantes">
+      <form onsubmit="return CadastrarCliente()">
+        <div class="title row">
+          <h3>Cadastro de Participante</h3>
+        </div>
+        <div>
+          &nbsp;
+        </div>
+        <div>
+          &nbsp;
+        </div>
+        <div class="form-row">
+          <div class="form-group col">
+            <input type="text" name="cadastroParticipante" class="form-control" placeholder="Nome Completo" required>
+          </div>
+          <div class="form-group col">
+            <input id='cpf' type="text" name="cadastroParticipante" class="cpfParticipente form-control" placeholder="CPF"
+              onblur="ValidarCpf()" required>
+          </div>
+          <div class="form-group col">
+            <input type="text" name="cadastroParticipante" class="form-control" placeholder="E-mail" required>
+          </div>
+        </div>
+        <div class="form-row ">
+          <div class="form-group col">
+            <input type="text" name="cadastroParticipante" class="data-nasc form-control"
+              placeholder="Data de Nascimento" required>
+          </div>
+          <div class="form-group col">
+            <input type="text" name="cadastroParticipante" class="telefoneCliente form-control" placeholder="Telefone" required>
+          </div>
+          <div class="form-group col">
+            <input type="text" name="cadastroParticipante" class="form-control" placeholder="Universidade" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col">
+            <select id="select" name="cadastroParticipante" class="form-control" required>
+              <option value="">Área de conhecimento</option>
+              <option value="Engenharias">Engenharias</option>
+              <option value="Lingüística, Letras e Artes">Lingüística, Letras e Artes</option>
+              <option value="Agrárias">Ciências Agrárias</option>
+              <option value="Biológicas">Ciências Biológicas</option>
+              <option value="Exatas e da Terra">Ciências Exatas e da Terra</option>
+              <option value="Saúde">Ciências da Saúde</option>
+              <option value="Humanas">Ciências Humanas</option>
+              <option value="Sociais Aplicadas">Ciências Sociais Aplicadas</option>
+            </select>
+          </div>
+          <div class="form-group col">
+            <input type="text" name="cadastroParticipante" class="form-control" placeholder="Lattes" required>
+          </div>
+        </div>
+         
+        <button type="submit" class="form-control" style="width: 150px;  background-color: #0AC5A8; color: #ffffff;">Cadastrar</button>
+      </form>
+    </div>
+    <div class="apresentacao">
+      <h1>Tabela de Participantes</h1>
+    </div>
+    <div class="tabela-participantes">
+      <table class="table table-dark">
+        <tr id="client-table">
+          <th data-coluna="nome" data-ordem="decr" name="cert">Nome</th>
+          <th data-coluna="documento" data-ordem="decr" name="cert">CPF</th>
+          <th data-coluna="email" data-ordem="decr" name="cert">E-mail</th>
+          <th data-coluna="dataNasc" data-ordem="decr" name="cert">Data Nasc.</th>
+          <th data-coluna="telefone" data-ordem="decr" name="cert">Telefone</th>
+          <th data-coluna="instituicao" data-ordem="decr" name="cert">Instituição</th>
+          <th data-coluna="area" data-ordem="decr" name="cert">Área</th>
+          <th data-coluna="lattes" data-ordem="decr" name="cert">Lattes</th>
+          <th>Editar/Deletar</th>
+        </tr>
+        <tbody  style="background-color: #677ba2;" id="tabela-cliente"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="footer">
+
+  </div>
+  <div class="sub-footer">
+    <span>Copyright © 2020 CertiStack. Todos os Direitos reservados.</span>
+  </div>
+  <script src="CertiStack.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <!-- slick -->
+  <script type="text/javascript" src="slick.min.js"></script>
+  <script src="jquery.mask.min.js"></script>
+</body>
+
+</html>

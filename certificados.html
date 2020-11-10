@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificados</title>
+  <link rel="shortcut icon" href="imagens/logo.png">
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- BOOSTRAP -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <!-- jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+</head>
+
+<body  PerfilOnline()">
+  <div class="container-large">
+    <div class="nav">
+      <div class="logo">
+        <a href="home.html"><img src="imagens/logo_certistack2.png" style="position: relative; right: 28%; padding: 15px;" alt="error"></a>
+      </div>
+      <div class="itens">
+        <a href="home.html" class="a-efeito">Home</a>
+        <a href="perfil.html" class="a-efeito">Perfil</a>
+        <a href="certificados.html" class="a-efeito ativo">Certificados</a>
+        <a href="participantes.html" class="a-efeito">Participantes</a>
+      </div>
+      <div class="usuario-nav">
+        <i class="far fa-building fa-2x"></i>
+        <span style="margin: 2px 7px;">Olá</span>
+        <div class="dropdown">
+          <button class="dropbtn" id="nome_usuario"></button>
+          <div class="dropdown-content">
+            <a onclick="Logout()" href="cadastro-login.html">Sair</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="certificados">
+    <div class="apresentacao">
+      <h1>Cadastre seus Certificados</h1>
+    </div>
+    <div class="cadastro-certificado">
+      <form onsubmit="return AdicionarCertificados()">
+        <div class="title row">
+          <h3 class="">Cadastro de Certificado</h3>
+        </div>
+        <div>
+          &nbsp;
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <label for="">CPF:</label>
+            <input type="text" name="addCerti" class="cpf_certificado form-control" placeholder="000.000.000-00" onblur="ValidarCpf()" required>
+          </div>
+          <div class="col">
+            <label for="">Nome do evento:</label>
+            <input type="text" name="addCerti" class="form-control" placeholder="Nome do Evento" required>
+          </div>
+          <div class="col">
+            <label for="">Tipo de evento:</label>
+            <select name="addCerti" class="form-control" required>
+              <option value="nulo">Tipo De Evento</option>
+              <option value="oficina">Oficina</option>
+              <option value="Curso Extracurricular">Curso Extracurricular</option>
+              <option value="Eventos Acadêmicos">Eventos Acadêmicos</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          &nbsp;
+        </div>
+        <div class="form-row">
+          <div class="col" >
+            <label for="">Data inicial:</label>
+            <input type="text" name="addCerti" class="data-inicio form-control" placeholder="00/00/0000"  required>
+          </div>
+          <div class="col" >
+            <label for="">Data final:</label>
+            <input type="text" name="addCerti" class="data-fim form-control" id="data-fim" placeholder="00/00/0000"  >
+          </div>
+          <div class="col">
+            <label for="">Número de horas</label>
+            <input type="number" name="addCerti" class="form-control" placeholder="horas"  required>
+          </div>
+        </div>
+        <div>
+          &nbsp;
+        </div>
+        <div class="form-row" style="justify-content: center;">
+          <button type="submit" class="form-control" style="width: 150px;  background-color: #2C3C5B; color: #ffffff; margin: 10px;">Cadastrar</button>
+          <a type="menu" href="tabela-certificados.html" class="form-control" style="width: 150px;  background-color: #0AC5A8; color: #ffffff; margin: 10px; padding: 6px 16px;">Visualizar tabela</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="footer">
+  </div>
+  <div class="sub-footer">
+    <span>Copyright © 2020 CertiStack. Todos os Direitos reservados.</span>
+  </div>
+  <script src="CertiStack.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <!-- slick -->
+  <script type="text/javascript" src="slick.min.js"></script>
+  <script src="jquery.mask.min.js"></script>
+</body>
+</html>
