@@ -22,8 +22,8 @@
     <div class="container-large">
         <div class="nav">
             <div class="logo">
-                <a href="home.html"><img src="imagens/logo_certistack2.png" style="position: relative; right: 28%; padding: 15px;" alt="error"></a>
-            </div>
+                <a href="home.html"><img src="imagens/logo-header.png" style="position: relative; right: 28%; padding: 5px; width: 230px;" alt="error"></a>
+            </div> 
             <div class="itens">
                 <a href="home.html" class="a-efeito">Home</a>
                 <a href="perfil.html" class="a-efeito ativo">Perfil</a>
@@ -47,50 +47,63 @@
             <h1>Perfil</h1>
         </div>
         <div class="perfil">
-            <form onsubmit="return ComfirmaEditarPerfil()">
+            <form onsubmit="return ConfirmaEditarPerfil()">
                 <div class="title row">
                     <h3 class="">Dados Pessoais</h3>
                     <button  onclick="EditarPerfil()" id="editar" type="button" class="form-control btn btn-dark" style="background-color: #0AC5A8 !important; width: 70px;">Editar</button>
-                    <button  id="salvar" type="submit" class="form-control btn btn-dark" style="background-color: #0AC5A8 !important; width: 70px; display: none;">Salvar</button>
+                    <button id="salvar" type="submit" class="form-control btn btn-dark" style="background-color: #0AC5A8 !important; width: 70px; display: none;">Salvar</button>
                 </div>
                 <div>
                     &nbsp;
                 </div>
                 <div class="form-group">
-                    <input  style="display: none;" type="password" id="confirma-senha" class="form-control" placeholder="Confirme sua senha para a edição" required>
+                    <input style="display: none; background-color: #26324b;" type="password" id="confirma-senha" class="form-control" placeholder="Confirme sua senha para a edição" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" class="form-control" placeholder="Nome da Instituição" readonly>
+                    </div>
+                    <div class="form-group col">
+                        <label for="email">Email:</label>
+                        <input type="text" id="email" class="form-control" placeholder="Email" readonly>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="nome" class="form-control" placeholder="Nome da Instituição" readonly>
+                    <label for="cnpj">CNPJ:</label>
+                    <input type="text" id="cnpj" class="form-control" placeholder="00.000.000/0000-00" readonly>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="email" class="form-control" placeholder="Email" readonly>
+                    <label for="telefone">Telefone:</label>
+                    <input type="text" id="telefone" class="form-control" placeholder="(00) 00000-0000" readonly>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="cnpj" class="form-control" placeholder="CNPJ" readonly>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="telefone" class="form-control" placeholder="Telefone" readonly>
-                </div>
-                <div class="form-group">
+                    <label for="centro">Centro de Ensino:</label>
                     <input type="text" id="centro" class="form-control" placeholder="Centro de Ensino" readonly>
                 </div>
                 <div class="form-group">
+                    <label for="departamento">Departamento:</label>
                     <input type="text" id="departamento" class="form-control" placeholder="Departamento" readonly>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="site" class="form-control" placeholder="Site" readonly>
+                    <label for="site">Site:</label>
+                    <input type="text" id="site" class="form-control" placeholder="EX: certistack.com.br" readonly>
                 </div>
-                <input type="checkbox" id="deletar">
+                <div class="excluir-perfil" style="background-color: #26324b; color: #ffffff; border-radius: 10px; padding: 10px; display: none;">
+                    <input type="checkbox" id="deletar"> <label for="deletar">Excluir usuário.</label><br>
+                    <small>ATENCÃO! Ao marcar este checkbox e salvar sua edição, você irá excluir seu usuário</small>
+                </div>
+
             </form>
         </div>
 
     </div>
-    <div class="footer" style="position: absolute; bottom: 0;">
-        <div class="sub-footer" >
-            <span>Copyright © 2020 CertiStack. Todos os Direitos reservados.</span>
-          </div>
+    <div class="footer">
     </div>
-
+    <div class="sub-footer">
+      <span>Copyright © 2020 CertiStack. Todos os Direitos reservados.</span>
+    </div>
+    
     <script src="CertiStack.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

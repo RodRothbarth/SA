@@ -16,7 +16,7 @@
 </head>
 <body>
     <div class="container">
-        <img src="imagens/logo_certistack2.png" alt="">
+        <img src="imagens/logo_azul.png" alt="">
     </div>
     <div class="container-interativo">
         <div class="seta">
@@ -37,14 +37,17 @@
         </div>
         <div class="login">
             <div class="form-group">
-                <h3 id="titulo_Login">ENTRAR</h3>
+                <h3 id="titulo_Login" style="text-align: center;">ENTRAR</h3>
             </div>
             <div  class="cpf form-group">
-                <input onblur="ChamarCnpjLogin()" type="text" id="cnpj_login" name="login" placeholder="CNPJ" style="width: 350px" class="cnpj_login form-control" minlength="14" onblur="ChamarCnpj()">
+                <label for="">CNPJ:</label>
+                <input onblur="ChamarCnpjLogin()" type="text" id="cnpj_login" name="login" placeholder="00.000.000/0000-00" style="width: 350px" class="cnpj_login form-control" minlength="14" onblur="ChamarCnpj()">
             </div>
             <div class="senha form-group">
-                <input type="password" id="senha" name="login" placeholder="Senha" class="form-control" maxlength="16" minlength="6">
+                <label for="">Senha:</label>
+                <input type="password" id="senha_login" name="login" placeholder="************" class="form-control" maxlength="16" minlength="6">
             </div>
+            <div>&nbsp;</div>
             <div class="form-group">
                 <button type="button" class="form-control btn btn-dark" id="btnLogin" onclick="Validation()" style="width: 350px; background-color: #0AC5A8;">ENTRAR</button><br>
             </div>
@@ -68,7 +71,7 @@
             <div class="form-row">
                 <div class="form-group col">
                     <label for="">Senha:</label>
-                    <input type="password" id="senha" name="cadastro" placeholder="*********" class="form-control" onblur="ValidPass()" required>
+                    <input type="password" id="senha_cadastro" name="cadastro" placeholder="*********" class="form-control" onblur="ValidPass()" required>
                 </div>
                 <div class="form-group col">
                     <label for="">Confirme sua senha:</label>
@@ -81,19 +84,19 @@
                     <input type="text" id="celular" name="cadastro" placeholder="(00) 00000-0000" class="numCelular form-control" required>
                 </div>
                 <div class="form-group col">
-                    <label for="">CNPJ</label>
+                    <label for="">CNPJ:</label>
                     <input onblur="ChamarCnpj()" type="text" id="cnpj_cadastro" name="cadastro" placeholder="00.000.000/0000-00" class="documento form-control" minlength="14" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col">
-                    <label for="">Centro de Ensino</label>
+                    <label for="">Centro de Ensino:</label>
                     <input type="text" id="centro-de-ensino" name="cadastro" placeholder="Centro de Ensino" class="form-control" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col">
-                    <label for="">Departamento</label>
+                    <label for="">Departamento:</label>
                     <input type="text" id="departamento" name="cadastro" placeholder="Departamento" class="form-control" required>
                 </div>
             </div>
@@ -115,8 +118,12 @@
                     <input type="text" id="site" name="cadastro" placeholder="Site" class="form-control" required>
                 </div>
             </div>
+            <div><small>Todos os campos são obrigatórios *.</small></div>
+            <div>
+                &nbsp;
+            </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-dark form-control" id="btnCadastro" style="width: 150px; border-radius: px;  background-color: #0AC5A8;">CADASTRAR</button>
+                <button type="submit" class="btn btn-dark form-control" id="btnCadastro" style="width: 200px; border-radius: px;  background-color: #0AC5A8;">CADASTRAR</button>
             </div>
             <!-- adicionar
             departamento

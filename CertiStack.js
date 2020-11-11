@@ -103,42 +103,31 @@ function FormularioUsuario(){//cria o objeto a ser utilizado no cadastro
     let form = new User(user[0], user[1], user[2], user[4], user[5], user[6], user[7], user[8], user[9]); //mexer!!!
         return form; 
 };
-function test(){
-    
-    dataBase = JSON.parse(localStorage.getItem("user"))
-    
-    for(let i=0;i<dataClient.length;i++){
-        let existe = dataBase[i].documento.includes(novo.documento)
-        if(existe === true){
-            alert("participante ja cadastrado")
-        }
-    }    
 
-}
 function CadastrarUser(){ //sistema para cadastrar um novo usuario.
     let novo = FormularioUsuario();
-    dataBase = JSON.parse(localStorage.getItem("user"));
-    
+    let existe;
+     
     if (localStorage.getItem("user") === null ){
         dataBase.push(novo);
         localStorage.setItem("user", JSON.stringify(dataBase));
-        alert("Cadastro Realizado com Sucesso!");
+        alert("Cadastro Realizado com Sucesso?");
         $(".login").show();
         $(".cadastro").hide();
     }else{
+        dataBase = JSON.parse(localStorage.getItem("user"));
         for(let i=0;i<dataBase.length;i++){
-            let existe = dataBase[i].documento.includes(novo.documento)
-            if(existe === true){
-                alert("Usuário já cadastrado")
-            }else{
-                dataBase.push(novo);
-                localStorage.setItem("user", JSON.stringify(dataBase));
-                alert("Cadastro Realizado com Sucesso!");
-                $(".login").show();
-                $(".cadastro").hide();
-            }
-        }
-        
+           existe = dataBase[i].documento.includes(novo.documento)  
+        };
+        if(existe === true){
+            alert("Usuário já cadastrado")
+        }else{
+            dataBase.push(novo);
+            localStorage.setItem("user", JSON.stringify(dataBase));
+            alert("Cadastro Realizado com Sucesso!");
+            $(".login").show();
+            $(".cadastro").hide();
+        };   
     };        
 };
 
@@ -224,7 +213,7 @@ function ValidarCNPJ(cnpj) {
 function Validation(){//valida o login para entrada no perfil do usuario ou cliente desejado
     dataBase = JSON.parse(localStorage.getItem('user'));
     let usern = document.getElementById("cnpj_login").value;
-    let pssw = document.getElementById("senha").value;
+    let pssw = document.getElementById("senha_login").value;
 
     for(let i = 0; i < dataBase.length; i++){
         dataBase[i].id = dataBase.indexOf(dataBase[i])
@@ -271,22 +260,23 @@ function EditarPerfil(){
     $("#salvar").show();
     $("#editar").hide();
     $("#confirma-senha").show();
+    $(".excluir-perfil").show();
 }
 
-function ComfirmaEditarPerfil(){
+function ConfirmaEditarPerfil(){
     dataBase = JSON.parse(localStorage.getItem("user"));
     let info = JSON.parse(localStorage.getItem("online"));
     let confirmacao = document.getElementById("confirma-senha").value;
     for(let i = 0; i < dataBase.length; i++){
         if(dataBase[i].documento === info.documento){
             if(confirmacao === dataBase[i].senha ){
+                dataBase[i].nome = document.getElementById("nome").value;
                 dataBase[i].email = document.getElementById("email").value;
                 dataBase[i].documento = document.getElementById("cnpj").value;
                 dataBase[i].telefone = document.getElementById("telefone").value;
                 dataBase[i].centro_ensino = document.getElementById("centro").value;
                 dataBase[i].departamento = document.getElementById("departamento").value;
                 dataBase[i].site = document.getElementById("site").value;
-                dataBase[i].departamento = document.getElementById("nome_usuario").innerHTML;
                 localStorage.setItem('user', JSON.stringify(dataBase));
                 localStorage.setItem('online', JSON.stringify(dataBase[i])); 
                 if(document.getElementById('deletar').checked === true){
@@ -543,23 +533,23 @@ function FormularioCliente(){
 
 function CadastrarCliente(){ //sistema para cadastrar um novo usuario.
     let cliente = FormularioCliente()  
-    dataClient = JSON.parse(localStorage.getItem("cliente")) 
+     let existe;
         
     if (localStorage.getItem("cliente") === null ){ //cria um localStorage cliente se inexistente
         dataClient.push(cliente);
         localStorage.setItem("cliente", JSON.stringify(dataClient));
         alert("Cadastro Realizado com Sucesso!");
     }else{ // adiciona novos parametros no localStorage cliente
-    
+        dataClient = JSON.parse(localStorage.getItem("cliente"))
         for(let i=0;i<dataClient.length;i++){
-            let existe = dataClient[i].documento.includes(cliente.documento)
-            if(existe === true){
-                alert("Participante já cadastrado!")
-            }else{
-                dataClient.push(cliente);
-                localStorage.setItem("cliente", JSON.stringify(dataClient));
-                alert("Cadastro Realizado com Sucesso!");
-            }
+            existe = dataClient[i].documento.includes(cliente.documento)
+        }
+        if(existe === true){
+            alert("Participante já cadastrado!")
+        }else{
+            dataClient.push(cliente);
+            localStorage.setItem("cliente", JSON.stringify(dataClient));
+            alert("Cadastro Realizado com Sucesso!");
         }   
     }        
 }
@@ -585,7 +575,7 @@ $('#client-table').on('click', function(){ // organiza a tabela
     tabelaParticipantes(dataClient)  
 })
 
-function tabelaParticipantes(dados){ //cria a tabela de participantes de eventos
+function tabelaParticipantes(dados){ //cria a tabela dinamica de participantes de eventos
     let tabela = document.getElementById("tabela-cliente")
     tabela.innerHTML = ""
     for(var i=0; i< dados.length; i++){
@@ -622,7 +612,7 @@ function tabelaParticipantes(dados){ //cria a tabela de participantes de eventos
     }
 }
 
-function EditarCliente(){
+function EditarCliente(){ //seleciona a linha para editar
     let idLinha = $(this).data('id')
     let editar = $(`#editCliente-${idLinha}`)
     let deletar = $(`#deletaCliente-${idLinha}`)
@@ -638,10 +628,10 @@ function EditarCliente(){
     let lattes = dataClient[`${idLinha}`].lattes;     
      
     $(this).parents('tr').find(`td:eq(0)`).html(`<input id='nome-${idLinha}' type="text" value="${nome}">`)
-    $(this).parents('tr').find(`td:eq(1)`).html(`<input style="width:120px"id='documento-${idLinha}'  "type="text" value="${documento}">`)
+    $(this).parents('tr').find(`td:eq(1)`).html(`<input style="width:120px"id='documento-${idLinha}'  "type="text" value="${documento}">`).mask('000.000.000-00')
     $(this).parents('tr').find(`td:eq(2)`).html(`<input style="width:150px"id='email-${idLinha}' type="text" value="${email}">`)
     $(this).parents('tr').find(`td:eq(3)`).html(`<input style="width:100px"id='dataNasc-${idLinha}' type="text" value="${dataNasc}">`).mask('00/00/0000')
-    $(this).parents('tr').find(`td:eq(4)`).html(`<input style="width:100px"id='telefone-${idLinha}'  type="text" value="${telefone}">`)
+    $(this).parents('tr').find(`td:eq(4)`).html(`<input style="width:100px"id='telefone-${idLinha}'  type="text" value="${telefone}">`).mask('(00) 00000-0000')
     $(this).parents('tr').find(`td:eq(5)`).html(`<input style="width:100px"id='instituicao-${idLinha}' type="text" value="${instituicao}">`)
     $(this).parents('tr').find(`td:eq(6)`).html(`<input style="width:100px"id='area-${idLinha}' type="text" value="${area}">`)
     $(this).parents('tr').find(`td:eq(7)`).html(`<input style="width:100px"id='lattes-${idLinha}' type="text" value="${lattes}">`)
@@ -652,7 +642,7 @@ function EditarCliente(){
     salvar.removeClass('hidden');
 }
 
-function ConfirmaCliente(){
+function ConfirmaCliente(){ // confirma função editar
     let idLinha = $(this).data('id');
     let editar = $(`#editCliente-${idLinha}`);
     let deletar = $(`#deletaCliente-${idLinha}`);
@@ -677,66 +667,66 @@ function ConfirmaCliente(){
     dataClient[`${idLinha}`].area = area;
     dataClient[`${idLinha}`].lattes = lattes;
 
-    localStorage.setItem('cliente', JSON.stringify(dataClient))
-    editar.removeClass('hidden')
-    deletar.removeClass('hidden')
-    cancelar.addClass('hidden')
-    salvar.addClass('hidden')
+    localStorage.setItem('cliente', JSON.stringify(dataClient));
+    editar.removeClass('hidden');
+    deletar.removeClass('hidden');
+    cancelar.addClass('hidden');
+    salvar.addClass('hidden');
     location.reload();
 }
 
-function CancelaEditCliente(){
-    let idLinha = $(this).data('id')
-    let editar = $(`#editCliente-${idLinha}`)
-    let deletar = $(`#deletaCliente-${idLinha}`)
-    let cancelar = $(`#cancEditCliente-${idLinha}`)
-    let confirmar = $(`#ConfirmaEditCliente-${idLinha}`)
+function CancelaEditCliente(){ //cancela função editar
+    let idLinha = $(this).data('id');
+    let editar = $(`#editCliente-${idLinha}`);
+    let deletar = $(`#deletaCliente-${idLinha}`);
+    let cancelar = $(`#cancEditCliente-${idLinha}`);
+    let confirmar = $(`#ConfirmaEditCliente-${idLinha}`);
     
-    editar.removeClass('hidden')
-    deletar.removeClass('hidden')
-    cancelar.addClass('hidden')
-    confirmar.addClass('hidden')
+    editar.removeClass('hidden');
+    deletar.removeClass('hidden');
+    cancelar.addClass('hidden');
+    confirmar.addClass('hidden');
     location.reload();
 }
 
-function DeletaCliente(){
-    let idLinha = $(this).data("id")
-    let editar = $(`#editCliente-${idLinha}`)
-    let deletar = $(`#deletaCliente-${idLinha}`)
-    let cancelar = $(`#cancelaDelCliente-${idLinha}`)
-    let confirmar = $(`#confirmaDelCliente-${idLinha}`)
+function DeletaCliente(){ //para selecionar a linha para ser deletada
+    let idLinha = $(this).data("id");
+    let editar = $(`#editCliente-${idLinha}`);
+    let deletar = $(`#deletaCliente-${idLinha}`);
+    let cancelar = $(`#cancelaDelCliente-${idLinha}`);
+    let confirmar = $(`#confirmaDelCliente-${idLinha}`);
     
-    editar.addClass('hidden')
-    deletar.addClass('hidden')
-    cancelar.removeClass('hidden')
-    confirmar.removeClass('hidden')    
+    editar.addClass('hidden');
+    deletar.addClass('hidden');
+    cancelar.removeClass('hidden');
+    confirmar.removeClass('hidden');    
 }
 
-function ConfirmaDelCliente(){
-    let idLinha = $(this).data("id")
-    let linha = $(`.linha-${idLinha}`)
+function ConfirmaDelCliente(){ // botao para aceitar a função deletar quando selecinada
+    let idLinha = $(this).data("id");
+    let linha = $(`.linha-${idLinha}`);
     
-    dataClient.splice(`${idLinha}`,1)
-    localStorage.setItem('cliente', JSON.stringify(dataClient))  
-    linha.remove()
+    dataClient.splice(`${idLinha}`,1);
+    localStorage.setItem('cliente', JSON.stringify(dataClient));
+    linha.remove();
 }
 
-function CancelaDelCliente(){
-    let idLinha = $(this).data("id")
-    let editar = $(`#editCliente-${idLinha}`)
-    let deletar = $(`#deletaCliente-${idLinha}`)
-    let cancelar = $(`#cancelaDelCliente-${idLinha}`)
-    let confirmar = $(`#confirmaDelCliente-${idLinha}`)
+function CancelaDelCliente(){ // botao para cancelar a função deletar quando selecinada
+    let idLinha = $(this).data("id");
+    let editar = $(`#editCliente-${idLinha}`);
+    let deletar = $(`#deletaCliente-${idLinha}`);
+    let cancelar = $(`#cancelaDelCliente-${idLinha}`);
+    let confirmar = $(`#confirmaDelCliente-${idLinha}`);
     
-    editar.removeClass('hidden')
-    deletar.removeClass('hidden')
-    cancelar.addClass('hidden')
-    confirmar.addClass('hidden')  
+    editar.removeClass('hidden');
+    deletar.removeClass('hidden');
+    cancelar.addClass('hidden');
+    confirmar.addClass('hidden');
 }
 
 function Logout(){ // botão para sair do perfil validado para troca de perfil ou saida "segura" do sistema. 
     localStorage.removeItem("online");
     let url = 'cadastro-login.html';
-    location.href = "cadastro-login.html"; //ou window.open("home.html") para abrir em uma nova aba
-    history.replaceState(null, '', url)
+    location.href = "cadastro-login.html"; //para abrir a home apos sair da pagina
+    history.replaceState(null, '', url);
 };

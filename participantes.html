@@ -23,7 +23,7 @@
   <div class="container-large">
     <div class="nav">
       <div class="logo">
-        <a href="home.html"><img src="imagens/logo_certistack2.png" style="position: relative; right: 28%; padding: 15px;" alt="error"></a>
+        <a href="home.html"><img src="imagens/logo-header.png" style="position: relative; right: 28%; padding: 5px; width: 230px;" alt="error"></a>
       </div>
       <div class="itens">
         <a href="home.html" class="a-efeito">Home</a>
@@ -100,35 +100,17 @@
             <input type="text" name="cadastroParticipante" class="form-control" placeholder="Lattes" required>
           </div>
         </div>
-         
-        <button type="submit" class="form-control" style="width: 150px;  background-color: #0AC5A8; color: #ffffff;">Cadastrar</button>
+        <div class="botoes form-row" style="justify-content: center;">
+          <button type="submit" class="form-control" style="width: 150px;  background-color: #2C3C5B; color: #ffffff; margin: 10px;">Cadastrar</button>
+          <a type="menu" href="tabela-participantes.html" class="form-control" >Visualizar tabela</a>
+        </div>
       </form>
     </div>
-    <div class="apresentacao">
-      <h1>Tabela de Participantes</h1>
-    </div>
-    <div class="tabela-participantes">
-      <table class="table table-dark">
-        <tr id="client-table">
-          <th data-coluna="nome" data-ordem="decr" name="cert">Nome</th>
-          <th data-coluna="documento" data-ordem="decr" name="cert">CPF</th>
-          <th data-coluna="email" data-ordem="decr" name="cert">E-mail</th>
-          <th data-coluna="dataNasc" data-ordem="decr" name="cert">Data Nasc.</th>
-          <th data-coluna="telefone" data-ordem="decr" name="cert">Telefone</th>
-          <th data-coluna="instituicao" data-ordem="decr" name="cert">Instituição</th>
-          <th data-coluna="area" data-ordem="decr" name="cert">Área</th>
-          <th data-coluna="lattes" data-ordem="decr" name="cert">Lattes</th>
-          <th>Editar/Deletar</th>
-        </tr>
-        <tbody  style="background-color: #677ba2;" id="tabela-cliente"></tbody>
-      </table>
-    </div>
   </div>
-  <div class="footer">
-
-  </div>
-  <div class="sub-footer">
-    <span>Copyright © 2020 CertiStack. Todos os Direitos reservados.</span>
+  <div class="footer-2">
+    <div class="sub-footer-2">
+      <span>Copyright © 2020 CertiStack. Todos os Direitos reservados.</span>
+    </div>
   </div>
   <script src="CertiStack.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
